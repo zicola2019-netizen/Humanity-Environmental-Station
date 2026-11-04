@@ -106,7 +106,7 @@ st.markdown("<p style='text-align: center; color: #888;'>Humanity & Environmenta
 @st.cache-data(ttl=1)
 def get_data():
     try:
-        response = requests.get(FIREBASE_URL, headers={Cache-Control': 'no-cache'})
+        response = requests.get(FIREBASE_URL, headers={"Cache-Control": "no-cache"})
         if response.status_code == 200:
             data = response.json()
             if data:
