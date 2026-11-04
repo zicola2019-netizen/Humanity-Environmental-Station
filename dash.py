@@ -103,6 +103,7 @@ st.markdown("<p style='text-align: center; color: #888;'>Humanity & Environmenta
 # ==========================================
 # 3. دوال مساعدة
 # ==========================================
+@st.cache-data(ttl=1)
 def get_data():
     try:
         response = requests.get(FIREBASE_URL)
