@@ -11,7 +11,7 @@ import urllib.parse
 # 1. إعدادات النظام والـ AI
 # ==========================================
 # بنقرا المفتاح من إعدادات Streamlit (مش مكتوب في الكود عشان الأمان)
-GROQ_API_KEY=st.secrets["GROK_API_KEY"]
+GROQ_API_KEY=st.secrets["GROQ_API_KEY"]
 client = Groq(api_key=GROQ_API_KEY)
 
 FIREBASE_URL = "https://smart-helmet-project-23822-default-rtdb.firebaseio.com/helmet_data.json"
