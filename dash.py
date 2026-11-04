@@ -47,7 +47,7 @@ def generate_whatsapp_alert(lat, lng, message="🚨 تنبيه طوارئ من �
 # ==========================================
 # 3. الجزء العلوي (البيانات الحية)
 # ==========================================
-@st.fragment(run_every="3s")
+@st.fragment(run_every="1s")
 def show_live_data():
     data = get_data()
     if data:
