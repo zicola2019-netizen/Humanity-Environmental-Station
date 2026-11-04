@@ -19,7 +19,7 @@ except:
 client = Groq(api_key=GROQ_API_KEY)
 
 FIREBASE_URL = "https://smart-helmet-project-23822-default-rtdb.firebaseio.com/helmet_data.json"
-WHATSAPP_NUMBER = "2010283605279" # غير الرقم لو محتاج
+WHATSAPP_NUMBER = "2010283605279" # رقمك
 
 st.set_page_config(page_title="Command Center", page_icon="🚨", layout="wide")
 
@@ -28,13 +28,10 @@ st.set_page_config(page_title="Command Center", page_icon="🚨", layout="wide")
 # ==========================================
 st.markdown("""
     <style>
-    /* خلفية سودة */
     .stApp {
         background-color: #0a0a0a;
         color: #e0e0e0;
     }
-    
-    /* شكل المربعات (Neon Glassmorphism) */
     div[data-testid="metric-container"] {
         background: rgba(20, 25, 35, 0.8);
         border: 1px solid #00f3ff;
@@ -43,8 +40,6 @@ st.markdown("""
         box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
         color: white !important;
     }
-    
-    /* لون النصوص جوه المربعات */
     div[data-testid="metric-container"] label {
         color: #00f3ff !important;
         font-weight: bold;
@@ -52,14 +47,11 @@ st.markdown("""
     div[data-testid="metric-container"] div[data-testid="stMetricValue"] {
         color: #ffffff !important;
     }
-
-    /* أنيميشن النبض للتحذير */
     @keyframes pulse-red {
         0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
         70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
         100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
     }
-    
     .danger-box {
         background-color: #330000;
         border: 2px solid #ff0000;
@@ -72,7 +64,6 @@ st.markdown("""
         font-size: 20px;
         margin-bottom: 20px;
     }
-    
     .safe-box {
         background-color: #003311;
         border: 2px solid #00ff00;
@@ -84,8 +75,6 @@ st.markdown("""
         font-size: 18px;
         margin-bottom: 20px;
     }
-
-    /* شكل شاشة الـ AI */
     .ai-terminal {
         background-color: #000000;
         border-left: 5px solid #00f3ff;
@@ -101,9 +90,9 @@ st.markdown("<h1 style='text-align: center; color: #00f3ff; text-shadow: 0 0 10p
 st.markdown("<p style='text-align: center; color: #888;'>Humanity & Environmental Telemetry</p>", unsafe_allow_html=True)
 
 # ==========================================
-# 3. دوال مساعدة
+# 3. دوال مساعدة (تم إصلاح الكاش والتنصيص)
 # ==========================================
-@st.cache-data(ttl=1)
+@st.cache_data(ttl=1) 
 def get_data():
     try:
         response = requests.get(FIREBASE_URL, headers={"Cache-Control": "no-cache"})
@@ -112,7 +101,7 @@ def get_data():
             if data:
                 return dict(data)
         return None
-    except:
+    except Exception as e:
         return None
 
 def generate_whatsapp_alert(lat, lng, message="🚨 تنبيه طوارئ: بيئة العمل خطرة!"):
@@ -123,7 +112,7 @@ def generate_whatsapp_alert(lat, lng, message="🚨 تنبيه طوارئ: بي�
 # ==========================================
 # 4. الجزء العلوي (البيانات الحية)
 # ==========================================
-@st.fragment(run_every="1s") # تحديث كل ثانية
+@st.fragment(run_every="1s") 
 def show_live_data():
     data = get_data()
     if data:
@@ -132,13 +121,11 @@ def show_live_data():
         hr_val = float(data.get('heart_rate', 0))
         hum_val = float(data.get('humidity', 0))
 
-        # التحذيرات
         if gas_val > 300 or temp_val > 40:
             st.markdown('<div class="danger-box">⚠️ CRITICAL WARNING: HAZARDOUS ENVIRONMENT DETECTED ⚠️</div>', unsafe_allow_html=True)
         else:
             st.markdown('<div class="safe-box">✅ SYSTEM NORMAL: ALL PARAMETERS STABLE</div>', unsafe_allow_html=True)
 
-        # المربعات
         col1, col2, col3, col4 = st.columns(4)
         col1.metric(label="🌡️ TEMPERATURE", value=f"{temp_val} °C")
         col2.metric(label="💧 HUMIDITY", value=f"{hum_val} %")
@@ -147,7 +134,6 @@ def show_live_data():
 
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # الخريطة والرسم البياني
         col_map, col_chart = st.columns(2)
         
         with col_map:
@@ -162,7 +148,6 @@ def show_live_data():
                     popup="Worker", 
                     icon=folium.Icon(color="red", icon="info-sign")
                 ).add_to(m)
-                # key ثابت عشان ميعملش ريفريش كامل
                 st_folium(m, height=350, use_container_width=True, key="stable_map")
             else:
                 st.warning("⏳ Waiting for GPS Signal...")
@@ -180,7 +165,6 @@ def show_live_data():
             }
             st.session_state.history = pd.concat([st.session_state.history, pd.DataFrame([new_row])], ignore_index=True).tail(15)
             
-            # رسم بياني تفاعلي بـ Plotly
             fig = px.line(st.session_state.history, x="Time", y=["Gas", "Temp", "HR"], 
                           color_discrete_sequence=["#ff4b4b", "#00f3ff", "#ffaa00"])
             fig.update_layout(
