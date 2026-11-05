@@ -84,7 +84,7 @@ st.markdown("<p style='text-align: center; color: #888;'>Humanity & Environmenta
 # ==========================================
 # 3. دوال مساعدة
 # ==========================================
-@st.cache_data(ttl=5)
+@st.cache_data(ttl=15)
 def get_data():
     try:
         response = requests.get(THINGSPEAK_LAST_URL)
@@ -117,7 +117,7 @@ def generate_whatsapp_alert(lat, lng, is_danger=False):
 # ==========================================
 # 4. الجزء العلوي (البيانات الحية)
 # ==========================================
-@st.fragment(run_every="5s") 
+@st.fragment(run_every="15s") 
 def show_live_data():
     data = get_data()
     if data:
