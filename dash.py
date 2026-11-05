@@ -25,7 +25,7 @@ READ_API_KEY = "INOALOP5AO7TBQ59" # <--- ضع Read API Key هنا
 THINGSPEAK_LAST_URL = f"https://api.thingspeak.com/channels/{CHANNEL_ID}/feeds/last.json?api_key={READ_API_KEY}"
 THINGSPEAK_HISTORY_URL = f"https://api.thingspeak.com/channels/{CHANNEL_ID}/feeds.json?api_key={READ_API_KEY}&results=20"
 
-WHATSAPP_NUMBER = "2010283605279" 
+WHATSAPP_NUMBER = "201283605279" 
 
 st.set_page_config(page_title="Command Center", page_icon="🚨", layout="wide")
 
