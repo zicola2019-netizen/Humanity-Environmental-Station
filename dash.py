@@ -20,7 +20,7 @@ client = Groq(api_key=GROQ_API_KEY)
 
 # ⚠️ إعدادات ThingSpeak (تأكد إنها بتاعتك)
 CHANNEL_ID = "3566946"  # <--- ضع Channel ID هنا
-READ_API_KEY = "WOP9E0M2MQ4RVMSM" # <--- ضع Read API Key هنا
+READ_API_KEY = "W0P9EOM2M3Q4RVM9" # <--- ضع Read API Key هنا
 
 THINGSPEAK_LAST_URL = f"https://api.thingspeak.com/channels/{CHANNEL_ID}/feeds/last.json?api_key={READ_API_KEY}"
 THINGSPEAK_HISTORY_URL = f"https://api.thingspeak.com/channels/{CHANNEL_ID}/feeds.json?api_key={READ_API_KEY}&results=20"
