@@ -88,9 +88,8 @@ def show_live_data():
         hr = float(data.get('field4') or 0)
         alarm = int(float(data.get('field5') or 0))
         
-        # اللوكيشن
-        gps_data = data.get('field8') or "0.0|0.0"
-        lat_str, lng_str = gps_data.split('|')
+        gps_data = data.get('field8') or "0.0,0.0"
+        lat_str, lng_str = gps_data.split(',')
         lat = float(lat_str)
         lng = float(lng_str)
     except ValueError:
