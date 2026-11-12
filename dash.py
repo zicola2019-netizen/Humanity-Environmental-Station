@@ -88,10 +88,8 @@ def show_live_data():
         hr = float(data.get('field4') or 0)
         alarm = int(float(data.get('field5') or 0))
         
-        gps_data = data.get('field8') or "0.0-0.0"
-        lat_str, lng_str = gps_data.split('-')
-        lat = float(lat_str)
-        lng = float(lng_str)
+        lat = 30.0444
+        lng = 31.2357
     except ValueError:
         st.error("Data format error from ThingSpeak.")
         return
